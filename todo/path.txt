@@ -1,0 +1,4 @@
+& "C:\Users\SAYAN DAS\Desktop\Assignment\env\Scripts\activate.ps1"
+
+sayan
+123

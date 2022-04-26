@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>Home</title>
+    </head>
+    <body>
+        {% if request.session.email %}
+        Hi {{request.session.name}}!!
+        {% endif %}
+        <br><br>
+        <h4>Add task</h4>
+        <div>
+            <div>
+                <form action="add_task" method="post">
+                    {% csrf_token %}
+                    <!--{{form.as_ul}}-->
+                    <input type="text" placeholder="Title" name="title" required/>
+                    <!--<input type="text" placeholder="Status" name="status" required/>-->
+                    <input type="submit" value="add">
+                </form>
+            </div>
+            <div>
+                <h4>Tasks</h4>
+                {% if tasks|length == 0 %}
+                    <p>No work to do</p>
+                {% else %}
+                <div>
+                    <table  class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Status</th>
+                                <th>Change</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for task in tasks %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{task.title}}</td>
+                                <td>{{task.status}}</td>
+                                <td><a href="edit-task/{{task.id}}" class="btn-btn-danger">Edit</a></td>
+                                <td><a href="delete-task/{{task.id}}" class="btn-btn-danger">Delete</a></td>
+                                {% if task.status == 'Pending' %}
+                                    <td><a href="change-status/{{task.id}}/{{task.status}}">Done</a></td>
+                                {% else %}
+                                    <td><a href="change-status/{{task.id}}/{{task.status}}">Incomplete</a></td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <br><br>
+        <a href="logout">Logout</a>
+    </body>
+</html>

@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>Edit Task</title>
+    </head>
+    <body>
+        Edit task
+        <br><br>
+        
+        <form action="/update-task/{{ob.id}}" method="POST">
+            {% csrf_token %}
+            <input type="text" value="{{ob.title}}" name="title" required/>
+            <input type="submit" value="Update">
+        </form>
+    </body>
+</html>
